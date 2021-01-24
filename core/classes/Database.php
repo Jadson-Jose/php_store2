@@ -3,7 +3,6 @@
 namespace core\classes;
 
 use Exception;
-use FFI\Exception as FFIException;
 use PDO;
 use PDOException;
 
@@ -92,7 +91,7 @@ class Database
         // liga
         $this->ligar();
 
-
+        // comunica
         try {
 
             // comunicação com o banco de dados
@@ -123,7 +122,7 @@ class Database
         }
 
 
-        // executa a função de pesquisa de sql
+        // concecta com o banco de dados
         $this->ligar();
 
         $resultados = null;
@@ -201,7 +200,7 @@ class Database
 
         // verirfica se é uma instrução diferente das anteriores
         if (preg_match("/^(SELECT|INSERT|UPDATE|DELETE)/i", $sql)) {
-            throw new Exception('Banco de dados - Não é uma instrução SELECT.');
+            throw new Exception('Banco de dados - Instrução inválida.');
         }
 
 
