@@ -4,7 +4,6 @@
 $rotas = [
     'inicio' => 'main@index',
     'loja' => 'main@loja',
-    'carrinho' => 'loja@carrinho'
 ];
 
 // define a ação por padrão
