@@ -4,7 +4,7 @@ namespace core\classes;
 
 use Exception;
 
-class Functions
+class Store
 {
 
     // ==============================================================
@@ -25,5 +25,13 @@ class Functions
         foreach ($estruturas as $estrutura) {
             include("../core/views/$estrutura.php");
         }
+    }
+
+    // ==============================================================
+    public function clienteLogado()
+    {
+
+        // verifica se existe um cliente com a sessão ativa
+        return isset($_SESSION['cliente']);
     }
 }
