@@ -1,0 +1,16 @@
+TABELA CLIENTES DO BANCO DE DADOS
+---------------------------------------
+
+	id_cliente` INT(10) 
+	email` VARCHAR(50) 
+	senha` VARCHAR(250) 
+	nome_completo` VARCHAR(250) 
+	endereço` VARCHAR(50) 
+	cidade` VARCHAR(50) 
+	telefone` VARCHAR(50) 
+	purl` VARCHAR(50) 
+	ativo` TINYINT(4)
+	created_at
+	updated_at 
+	deleted_at
+	PRIMARY KEY 

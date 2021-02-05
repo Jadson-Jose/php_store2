@@ -1,3 +1,10 @@
+<?php
+
+use core\classes\Store;
+
+
+?>
+
 <div class="container-fluid navegacao">
     <div class="row">
         <div class="col-6 p-3">
@@ -6,11 +13,26 @@
             </a>
         </div>
         <div class="col-6 text-end p-3">
-            <a href="">Item1</a>
-            <a href="">Item2</a>
-            <a href="">Item3</a>
-            <a href=""><em class="fas fa-shopping-cart"></em></a>
-            <span class="badge bg-warning">10</span>
+
+            <a href="?a=inicio" class="nav-item">Início</a>
+            <a href="?a=loja" class="nav-item">Loja</a>
+
+            <!-- verifica se existe cliente na sessão -->
+            <?php if (Store::clienteLogado()) : ?>
+
+                <a href="" class="nav-item">A minha Loja</a>
+                <a href="" class="nav-item">Logout</a>
+
+            <?php else : ?>
+
+                <a href="" class="nav-item">Login</a>
+                <a href="?a=novo_cliente" class="nav-item">Criar conta</a>
+
+            <?php endif; ?>
+
+            <a href="?a=carrinho"><em class="fas fa-shopping-cart"></em></a>
+
+            <span class="badge bg-warning"></span>
         </div>
     </div>
 </div>
