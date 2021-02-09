@@ -14,9 +14,11 @@ class Database
     // ==============================================================
     private function ligar()
     {
+       
+        
         // ligação com o banco de dados
         $this->ligacao = new PDO(
-            'mysql:' .
+                'mysql:' .
                 'host=' . MYSQL_SERVER . ';' .
                 'dbname=' . MYSQL_DATABASE . ';' .
                 'charset=' . MYSQL_CHARSET,
@@ -41,6 +43,7 @@ class Database
     // ==============================================================
     public function select($sql, $parametros = null)
     {
+        $sql = trim($sql);
 
         // verirfica se é uma instrução SELECT
         if (!preg_match("/^SELECT/i", $sql)) {
@@ -82,6 +85,8 @@ class Database
     public function insert($sql, $parametros = null)
     {
 
+        $sql = trim($sql);
+
         // verirfica se é uma instrução INSERT
         if (!preg_match("/^INSERT/i", $sql)) {
             throw new Exception('Banco de dados - Não é uma instrução INSERT.');
@@ -115,6 +120,8 @@ class Database
     // ==============================================================
     public function update($sql, $parametros = null)
     {
+
+        $sql = trim($sql);
 
         // verirfica se é uma instrução UPDATE
         if (!preg_match("/^UPDATE/i", $sql)) {
@@ -155,6 +162,8 @@ class Database
     // ==============================================================
     public function delete($sql, $parametros = null)
     {
+
+        $sql = trim($sql);
 
         // verirfica se é uma instrução DELETE
         if (!preg_match("/^DELETE/i", $sql)) {

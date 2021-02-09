@@ -28,10 +28,19 @@ class Store
     }
 
     // ==============================================================
-    public function clienteLogado()
+    public static function clienteLogado()
     {
 
         // verifica se existe um cliente com a sessão ativa
         return isset($_SESSION['cliente']);
+    }
+
+    // ==============================================================
+    public static function criarHash($num_caractere = 12)
+    {
+
+        // criar hashes
+        $chars = '01234567890123456789abcdefghijklmnoparstuwyzabcdefghijklmnoparstuwyzABCDEFGHIJKLMNOPARSTUWYZABCDEFGHIJKLMNOPARSTUWYZ';
+        return substr(str_shuffle($chars), 0, $num_caractere);
     }
 }

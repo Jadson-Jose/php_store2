@@ -21,3 +21,5 @@ Foi criada tabém a estrutara da div da loja com colunas linhas e containers.
 
 Dentro do header foi feito o bloco de código que verifica se exite cliente dentro da sessão, ou seja, se há algum cliente logado na sessão. DEntro do arquivo html_header foi apenas adionado uma taga title.
  Foi criado tabém dois seletores em CSS o nav-item e o nav-item:hover.
+
+Criação da função estática da hash e criada também a hash.

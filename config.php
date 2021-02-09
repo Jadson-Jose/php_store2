@@ -8,5 +8,5 @@ define('APP_VERSION', '1.0.0');
 define('MYSQL_SERVER',    'localhost');
 define('MYSQL_DATABASE', 'php_store');
 define('MYSQL_USER',      'user_php_store');
-define('MYSQL_PASS',      '7OKonEXAY4NA');
+define('MYSQL_PASS',      '85cof6352A');
 define('MYSQL_CHARSET',   'utf8');

@@ -14,3 +14,14 @@ TABELA CLIENTES DO BANCO DE DADOS
 	updated_at 
 	deleted_at
 	PRIMARY KEY 
+
+
+INFORMAÇÕES VINDAS DO FORMULÁRIO
+---------------------------------------
+    [text_email] => teste@teste.com
+    [text_senha] => 123456
+    [text_senha_2] => 123456
+    [text_nome_completo] => Jadson Silva
+    [text_endereco] => do cliente
+    [text_cidade] => do cliente
+    [text_telefone] => 9999-9999
