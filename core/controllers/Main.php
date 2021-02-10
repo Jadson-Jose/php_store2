@@ -1,9 +1,10 @@
 <?php
 
-namespace core\controladores;
+namespace core\controllers;
 
 use core\classes\Database;
 use core\classes\Store;
+use core\models\Clientes;
 
 class Main
 {
@@ -95,17 +96,52 @@ class Main
         }
 
         // verifica no banco de dados se existe cliente com o mesmo email
-        // $bd = new Database();
-        // $parametros = [
-        //     ':e' => strtolower(trim($_POST['text_email']))
-        // ];
-        // $resultados = $bd->select(" SELECT email FROM clientes WHERE email = :e ", $parametros);
+        $cliente = new Clientes();
 
-        // // se o cliente já existe ...
-        // if (count($resultados) != 0) {
-        //     $_SESSION['erro'] = 'Já existe um cliente com o mesmo email.';
-        //     $this->novo_cliente();
-        //     return;
-        // }
+        if ($cliente->verificar_email_existe($_POST['text_email'])) {
+            $_SESSION['erro'] = 'Já existe um cliente com o mesmo email.';
+            $this->novo_cliente();
+            return;
+        }
+
+        //  inserir novo cliente no banco de dados e devolve o purl
+        $purl = $cliente->registrar_cliente();
+
+
+        // criar um link para enviar por email
+    }
+
+    // ==============================================================
+    public function confirmar_email()
+    {
+
+        // verifica se já existe sessão
+        if (Store::clienteLogado()) {
+            $this->index();
+            return;
+        }
+
+        // verifica se existe na query string um purl
+        if (!isset($_GET['purl'])) {
+            $this->index();
+            return;
+        }
+
+        $purl = $_GET['purl'];
+
+        // verifica se o purl é válido
+        if (strlen($purl) != 12) {
+            $this->index();
+            return;
+        }
+
+        $cliente = new Clientes();
+        $resultado =  $cliente->validar_email($purl);
+
+        if ($resultado) {
+            echo 'Conta validada com sucesso!';
+        } else {
+            echo 'A conta não foi validada';
+        }
     }
 }

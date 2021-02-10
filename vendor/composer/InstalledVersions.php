@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9efd0dc5057a74a382fcc5e3c173028b67a53a10',
+    'reference' => '8cd469b903ee7ebee25c1d05e1a3749db2a69b17',
     'name' => 'jadso/php_store2',
   ),
   'versions' => 
@@ -41,7 +41,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9efd0dc5057a74a382fcc5e3c173028b67a53a10',
+      'reference' => '8cd469b903ee7ebee25c1d05e1a3749db2a69b17',
+    ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.2.0',
+      'version' => '6.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e38888a75c070304ca5514197d4847a59a5c853f',
     ),
   ),
 );

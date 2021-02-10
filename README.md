@@ -23,3 +23,7 @@ Dentro do header foi feito o bloco de código que verifica se exite cliente dent
  Foi criado tabém dois seletores em CSS o nav-item e o nav-item:hover.
 
 Criação da função estática da hash e criada também a hash.
+
+Foi feito a instalação através do composer o phpmailer. 
+
+Criação e inplementação do arquivo Clientes.php, como o seu name space referindo-se ao core com Database, criação da função para verificar se o email existe, não foi feito testes como o envio e recebimento  de emails, e em com links para confirmar o recebimento do email, neste mesma função foram passados algumas query strings. 
