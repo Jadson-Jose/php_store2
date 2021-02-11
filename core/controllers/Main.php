@@ -3,6 +3,7 @@
 namespace core\controllers;
 
 use core\classes\Database;
+use core\classes\EnviarEmail;
 use core\classes\Store;
 use core\models\Clientes;
 
@@ -58,6 +59,26 @@ class Main
     }
 
     // ==============================================================
+    public function login()
+    {
+
+        // verifica se já existe um utilizador logado
+        if (Store::clienteLogado()) {
+            Store::redirect();
+            return;
+        }
+
+        // apresentação do fomulário de login
+        Store::Layout([
+            'layouts/html_header',
+            'layouts/header',
+            'login_frm',
+            'layouts/footer',
+            'layouts/html_footer',
+        ]);
+    }
+
+    // ==============================================================
     public function carrinho()
     {
         // apresenta a página da carrinho
@@ -105,7 +126,27 @@ class Main
         }
 
         //  inserir novo cliente no banco de dados e devolve o purl
+        $email_cliente = strtolower(trim($_POST['text_email']));
         $purl = $cliente->registrar_cliente();
+
+        // envio do email para o cliente
+        $email = new EnviarEmail();
+        $resultado = $email->enviar_email_confirmação_novo_cliente($email_cliente, $purl);
+
+        if ($resultado) {
+            // apresenta o para informar o envio do email
+            Store::Layout([
+                'layouts/html_header',
+                'layouts/header',
+                'criar_cliente_sucesso',
+                'layouts/footer',
+                'layouts/html_footer',
+            ]);
+
+            return;
+        } else {
+            echo 'Aconteceu um erro';
+        }
 
 
         // criar um link para enviar por email
@@ -139,9 +180,47 @@ class Main
         $resultado =  $cliente->validar_email($purl);
 
         if ($resultado) {
-            echo 'Conta validada com sucesso!';
+            // apresenta o para informar que a conta foi confirmada com sucesso
+            Store::Layout([
+                'layouts/html_header',
+                'layouts/header',
+                'conta_confirmada_sucesso',
+                'layouts/footer',
+                'layouts/html_footer',
+            ]);
         } else {
-            echo 'A conta não foi validada';
+            Store::redirect('login');
         }
+    }
+
+    // ==============================================================
+    public function login_submit()
+    {
+
+        // verifica se já existe um utilizador logado
+        if (Store::clienteLogado()) {
+            Store::redirect('login');
+            return;
+        }
+
+        // verifica se foi efetuado o post do formulário de login
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            Store::redirect('login');
+            return;
+        }
+
+        // valida se os campos vieram corretamente preenchidos
+        if (
+            !isset($_POST['text_usuario']) ||
+            !isset($_POST['text_senha']) ||
+            !filter_var(trim($_POST['text_usuario']), FILTER_VALIDATE_EMAIL)
+        ) {
+            // erro de preenchimento do formulário
+            $_SESSION['erro'] = 'Login inválido';
+            Store::redirect('login');
+            return;
+        }
+
+        echo 'OK';
     }
 }

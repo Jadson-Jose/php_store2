@@ -25,7 +25,7 @@ use core\classes\Store;
 
             <?php else : ?>
 
-                <a href="?=login" class="nav-item">Login</a>
+                <a href="?a=login" class="nav-item">Login</a>
                 <a href="?a=novo_cliente" class="nav-item">Criar conta</a>
 
             <?php endif; ?>
