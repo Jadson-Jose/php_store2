@@ -20,8 +20,10 @@ use core\classes\Store;
             <!-- verifica se existe cliente na sessão -->
             <?php if (Store::clienteLogado()) : ?>
 
-                <a href="?a=minha_conta" class="nav-item">A minha Loja</a>
-                <a href="?a=loja" class="nav-item">Logout</a>
+                <a href="?a=minha_conta" class="nav-item">
+                    <?= $_SESSION['usuario'] ?>
+                </a>
+                <a href="?a=logout" class="nav-item"><em class="fas fa-sign-out-alt"></em></a>
 
             <?php else : ?>
 

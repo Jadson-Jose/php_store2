@@ -20,9 +20,10 @@
                         <input type="submit" value="Entrar" class="btn btn-primary" required>
                     </div>
 
-                    <?php if (!isset($_SESSION['erro'])) : ?>
+                    <?php if (isset($_SESSION['erro'])) : ?>
                         <div class="alert alert-danger text-center">
                             <?= $_SESSION['erro'] ?>
+                            <?php unset($_SESSION['erro']); ?>
                         </div>
                     <?php endif; ?>
 

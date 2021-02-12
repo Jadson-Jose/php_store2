@@ -64,7 +64,7 @@ class Main
 
         // verifica se já existe um utilizador logado
         if (Store::clienteLogado()) {
-            Store::redirect();
+            Store::redirect('login');
             return;
         }
 
@@ -73,21 +73,6 @@ class Main
             'layouts/html_header',
             'layouts/header',
             'login_frm',
-            'layouts/footer',
-            'layouts/html_footer',
-        ]);
-    }
-
-    // ==============================================================
-    public function carrinho()
-    {
-        // apresenta a página da carrinho
-
-
-        Store::Layout([
-            'layouts/html_header',
-            'layouts/header',
-            'carrinho',
             'layouts/footer',
             'layouts/html_footer',
         ]);
@@ -199,13 +184,14 @@ class Main
 
         // verifica se já existe um utilizador logado
         if (Store::clienteLogado()) {
-            Store::redirect('login');
+            Store::redirect();
             return;
         }
 
+
         // verifica se foi efetuado o post do formulário de login
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            Store::redirect('login');
+            Store::redirect();
             return;
         }
 
@@ -221,6 +207,59 @@ class Main
             return;
         }
 
-        echo 'OK';
+        // prepara os dados para o model
+        $usuario = trim(strtolower($_POST['text_usuario']));
+        $senha = trim($_POST['text_senha']);
+
+        // carrega o model e verifica se o login é válido
+        $cliente = new Clientes();
+        $resultado = $cliente->validar_login($usuario, $senha);
+
+        // analisa o resultado
+        if (is_bool($resultado)) {
+
+            //  login inválido
+            $_SESSION['erro'] = 'Login inválida';
+            Store::redirect('login');
+            return;
+        } else {
+
+            // login válido. coloca os dados na sessão
+            $_SESSION['cliente'] = $resultado->id_cliente;
+            $_SESSION['usuario'] = $resultado->email;
+            $_SESSION['nome_completo'] = $resultado->nome_completo;
+
+            // redirecioanr para o inicio da nossa loja
+            Store::redirect();
+        }
+    }
+
+    // ==============================================================
+    public function logout()
+    {
+
+        // remove as variáveis da sessão
+        unset($_SESSION['cliente']);
+        unset($_SESSION['usuario']);
+        unset($_SESSION['nome_cliente']);
+
+        // redireciona para o início da loja
+        Store::redirect();
+    }
+
+
+    // ==============================================================
+    public function carrinho()
+    {
+        // apresenta a página da carrinho
+
+
+        Store::Layout([
+            'layouts/html_header',
+            'layouts/header',
+            'carrinho',
+            'layouts/footer',
+            'layouts/html_footer',
+        ]);
     }
 }

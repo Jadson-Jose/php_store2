@@ -96,4 +96,44 @@ class Clientes
         $bd->update("UPDATE clientes SET purl = NULL, ativo = 1, updated_at = NOW()", $parametros);
         return true;
     }
+
+    // ========================================================================================
+    public function validar_login($usuario, $senha)
+    {
+
+        // verifica se o login é válido
+        $parametros = [
+            ':usuario' => $usuario
+        ];
+
+        $bd = new Database();
+        $resultados = $bd->select(
+            "SELECT * FROM clientes 
+                      WHERE email = :usuario 
+                      AND ativo = 1
+                      AND deleted_at IS NULL ",
+            $parametros
+        );
+
+        if (count($resultados) != 1) {
+
+            // não existe usuário
+            return false;
+        } else {
+
+            // temos usuario, vamos ver a sua senha
+            $usuario = $resultados[0];
+
+            // verificar a password
+            if (!password_verify($senha, $usuario->$senha)) {
+
+                // password inválida
+                return false;
+            } else {
+
+                // login válido
+                return $usuario;
+            }
+        }
+    }
 }
