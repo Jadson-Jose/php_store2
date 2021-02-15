@@ -44,10 +44,25 @@ class Store
         return substr(str_shuffle($chars), 0, $num_caractere);
     }
 
+    // ==============================================================
     public static function redirect($rota = '')
     {
 
         // faz o redirecionamento para a URL desejada (rota)
         header("Location" .  "?a=$rota");
+    }
+
+    // ==============================================================
+    public static function printData($data)
+    {
+        if (is_array($data) || is_object($data)) {
+            echo "<pre>";
+            print_r($data);
+        } else {
+            echo "<pre>";
+            echo $data;
+        }
+
+        die("<br>TERMINADO!");
     }
 }

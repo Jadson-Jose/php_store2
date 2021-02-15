@@ -93,7 +93,7 @@ class Clientes
         $parametros = [
             ':id_cliente' => $id_cliente
         ];
-        $bd->update("UPDATE clientes SET purl = NULL, ativo = 1, updated_at = NOW()", $parametros);
+        $bd->update("UPDATE clientes SET purl = NULL, ativo = 1, updated_at = NOW() , WHERE id_cliente = :id_cliente", $parametros);
         return true;
     }
 

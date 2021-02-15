@@ -6,6 +6,7 @@ use core\classes\Database;
 use core\classes\EnviarEmail;
 use core\classes\Store;
 use core\models\Clientes;
+use core\models\Produtos;
 
 class Main
 {
@@ -28,6 +29,12 @@ class Main
     public function loja()
     {
         // apresenta a página da loja
+
+        // busca o lista de produtos disponíveis
+        $produtos = new Produtos();
+        $lista_produtos = $produtos->lista_produtos_disponivel();
+
+        Store::printData($lista_produtos);
 
 
         Store::Layout([
@@ -127,8 +134,6 @@ class Main
                 'layouts/footer',
                 'layouts/html_footer',
             ]);
-
-            return;
         } else {
             echo 'Aconteceu um erro';
         }
@@ -219,9 +224,8 @@ class Main
         if (is_bool($resultado)) {
 
             //  login inválido
-            $_SESSION['erro'] = 'Login inválida';
+            $_SESSION['erro'] = 'Login inválido';
             Store::redirect('login');
-            return;
         } else {
 
             // login válido. coloca os dados na sessão
@@ -246,6 +250,13 @@ class Main
         // redireciona para o início da loja
         Store::redirect();
     }
+
+    // ==============================================================
+
+
+
+
+
 
 
     // ==============================================================
