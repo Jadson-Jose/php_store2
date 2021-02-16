@@ -43,7 +43,7 @@ class Main
             'loja',
             'layouts/footer',
             'layouts/html_footer',
-        ]);
+        ], ['produtos' => $lista_produtos]);
     }
 
     // ==============================================================

@@ -56,13 +56,13 @@ class Store
     public static function printData($data)
     {
         if (is_array($data) || is_object($data)) {
-            echo "<pre>";
+            echo '<pre>';
             print_r($data);
         } else {
-            echo "<pre>";
+            echo '<pre>';
             echo $data;
         }
 
-        die("<br>TERMINADO!");
+        // die("<br>TERMINADO!");
     }
 }
