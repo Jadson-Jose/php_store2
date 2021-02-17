@@ -1,22 +1,39 @@
-<?php $produto = $produtos[0]; ?>
+<!-- <?php $produto = $produtos[0]; ?> -->
 
 
-<div class="container-fluid">
+<div class="container espaco-fundo">
 
     <!-- titulo da página -->
     <div class="row">
-        <div class="col-12">
-            <h3>LOJA ONLINE</h3>
+        <div class="col-12 text-center my-4">
+            <a href="?a=loja&c=todos" class="btn btn-primary">Todos</a>
+            <a href="?a=loja&c=homem" class="btn btn-primary">Homem</a>
+            <a href="?a=loja&c=mulher" class="btn btn-primary">Mulher</a>
         </div>
     </div>
 
     <!-- produtos -->
     <div class="row">
-        <div class="col-12">
-            <div class="text-center p-3">
-                <?= $produto->nome_produto ?>
+
+        <?php foreach ($produtos as $produto) : ?>
+
+            <div class="col-sm-4 col-6 p-1">
+
+                <div class="text-center p-3 box-produto card">
+
+                    <img src="assets/images/produtos/<?= $produto->imagem ?>" class="img-fluid">
+                    <h5><?= $produto->nome_produto ?></h5>
+                    <h1><?= $produto->preco ?></h1>
+
+                    <button>Adicionar ao carrinho</button>
+
+
+                </div>
+
             </div>
-        </div>
+
+        <?php endforeach; ?>
+
     </div>
 </div>
 

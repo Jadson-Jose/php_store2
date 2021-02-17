@@ -49,7 +49,7 @@ class Store
     {
 
         // faz o redirecionamento para a URL desejada (rota)
-        header("Location" .  "?a=$rota");
+        header("Location: " . BASE_URL . "?a=$rota");
     }
 
     // ==============================================================

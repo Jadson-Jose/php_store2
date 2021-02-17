@@ -32,10 +32,14 @@ class Main
 
         // busca o lista de produtos disponíveis
         $produtos = new Produtos();
-        $lista_produtos = $produtos->lista_produtos_disponivel();
 
-        Store::printData($lista_produtos);
+        // analisa que categoria mostrar
+        $c = 'todos';
+        if (isset($_GET['c'])) {
+            $c = $_GET['c'];
+        }
 
+        $lista_produtos = $produtos->lista_produtos_disponivel($c);
 
         Store::Layout([
             'layouts/html_header',
