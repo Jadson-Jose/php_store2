@@ -39,7 +39,15 @@ class Main
             $c = $_GET['c'];
         }
 
+        // busca a informação do banco de dados
         $lista_produtos = $produtos->lista_produtos_disponivel($c);
+        $lista_categoria = $produtos->lista_categoria();
+
+
+        $dados = [
+            'produtos' => $lista_produtos,
+            'categorias' => $lista_categoria
+        ];
 
         Store::Layout([
             'layouts/html_header',
@@ -47,7 +55,7 @@ class Main
             'loja',
             'layouts/footer',
             'layouts/html_footer',
-        ], ['produtos' => $lista_produtos]);
+        ], $dados);
     }
 
     // ==============================================================
