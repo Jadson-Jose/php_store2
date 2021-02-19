@@ -262,27 +262,4 @@ class Main
         // redireciona para o início da loja
         Store::redirect();
     }
-
-    // ==============================================================
-
-
-
-
-
-
-
-    // ==============================================================
-    public function carrinho()
-    {
-        // apresenta a página da carrinho
-
-
-        Store::Layout([
-            'layouts/html_header',
-            'layouts/header',
-            'carrinho',
-            'layouts/footer',
-            'layouts/html_footer',
-        ]);
-    }
 }

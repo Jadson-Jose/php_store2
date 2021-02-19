@@ -1,6 +1,8 @@
-<!-- <?php $produto = $produtos[0]; ?> -->
+<?php
 
+print_r($_SESSION);
 
+?>
 <div class="container espaco-fundo">
 
     <!-- titulo da página -->
@@ -33,10 +35,11 @@
 
                         <img src="assets/images/produtos/<?= $produto->imagem ?>" class="img-fluid">
                         <h5><?= $produto->nome_produto ?></h5>
-                        <h1><?= $produto->preco ?></h1>
+                        <h1><?= preg_replace("/\./", ",", $produto->preco) . '$' ?></h1>
 
-                        <button>Adicionar ao carrinho</button>
-
+                        <div>
+                            <button class="btn btn-primary btn-sm " onclick="adicionar_carrinho(<?= $produto->id_produto ?>)"><em class="fas fa-shopping-cart me-2"> Adicionar ao carrinho</em></button>
+                        </div>
 
                     </div>
 
@@ -48,16 +51,3 @@
 
     </div>
 </div>
-
-
-<!-- [id_produto] => 1
-    [categoria] => homem
-    [nome_produto] => Tshirt Vermelho
-    [descricao_produto] => ffkwfkwe~fkwe~´fke~ef~´eçwkf~weçkf
-    [imagem] => tshirt_vermelha.png
-    [preco] => 45.70
-    [stock] => 100
-    [visivel] => 1
-    [created_at] => 2021-02-15 20:22:46
-    [updated_at] => 2021-02-15 20:22:56
-    [deleted_at] =>  -->
