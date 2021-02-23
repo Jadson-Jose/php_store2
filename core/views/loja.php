@@ -1,8 +1,3 @@
-<?php
-
-print_r($_SESSION);
-
-?>
 <div class="container espaco-fundo">
 
     <!-- titulo da página -->
@@ -27,6 +22,7 @@ print_r($_SESSION);
                 <h3>Não existem produtos disponíveis.</h3>
             </div>
         <?php else : ?>
+
             <?php foreach ($produtos as $produto) : ?>
 
                 <div class="col-sm-4 col-6 p-1">
@@ -35,10 +31,10 @@ print_r($_SESSION);
 
                         <img src="assets/images/produtos/<?= $produto->imagem ?>" class="img-fluid">
                         <h5><?= $produto->nome_produto ?></h5>
-                        <h1><?= preg_replace("/\./", ",", $produto->preco) . '$' ?></h1>
+                        <h1><?= 'R$' . preg_replace("/\./", ",", $produto->preco) ?></h1>
 
                         <div>
-                            <button class="btn btn-primary btn-sm " onclick="adicionar_carrinho(<?= $produto->id_produto ?>)"><em class="fas fa-shopping-cart me-2"> Adicionar ao carrinho</em></button>
+                            <button class="btn btn-info btn-sm " onclick="adicionar_carrinho(<?= $produto->id_produto ?>)"><em class="fas fa-shopping-cart me-2"> Adicionar ao carrinho</em></button>
                         </div>
 
                     </div>
