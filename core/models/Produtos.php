@@ -12,8 +12,6 @@ class Produtos
     public function lista_produtos_disponivel($categoria)
     {
 
-        $this->lista_categoria();
-
         // busca todas as informações dos produtos no banco de dados
         $bd = new Database();
 
