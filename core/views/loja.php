@@ -23,6 +23,7 @@
             </div>
         <?php else : ?>
 
+            <!-- ciclo de apresentação dos produtos -->
             <?php foreach ($produtos as $produto) : ?>
 
                 <div class="col-sm-4 col-6 p-1">
@@ -34,7 +35,13 @@
                         <h1><?= 'R$' . preg_replace("/\./", ",", $produto->preco) ?></h1>
 
                         <div>
-                            <button class="btn btn-info btn-sm " onclick="adicionar_carrinho(<?= $produto->id_produto ?>)"><em class="fas fa-shopping-cart me-2"> Adicionar ao carrinho</em></button>
+
+                            <?php if ($produto->stock > 0) : ?>
+                                <button class="btn btn-info btn-sm " onclick="adicionar_carrinho(<?= $produto->id_produto ?>)"><em class="fas fa-shopping-cart me-2"> Adicionar ao carrinho</em></button>
+                            <?php else : ?>
+                                <button class="btn btn-danger btn-sm "><em class="fas fa-shopping-cart me-2"> Produto indisponível</em></button>
+                            <?php endif; ?>
+
                         </div>
 
                     </div>

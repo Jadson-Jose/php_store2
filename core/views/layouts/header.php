@@ -5,8 +5,8 @@ use core\classes\Store;
 // calcula o numero de produtos no carrinho
 $total_produtos = 0;
 if (isset($_SESSION['carrinho'])) {
-    foreach ($_SESSION['carrinho'] as $quantidade) {
-        $total_produtos += $quantidade;
+    foreach ($_SESSION['carrinho'] as $produto_quantidade) {
+        $total_produtos += $produto_quantidade;
     }
 }
 ?>
@@ -40,7 +40,7 @@ if (isset($_SESSION['carrinho'])) {
 
             <a href="?a=carrinho"><em class="fas fa-shopping-cart"></em></a>
             <span class="badge bg-warning" id="carrinho">
-                <php= $total_produtos; ?>
+                <?= $total_produtos == 0 ? '' : $total_produtos ?>
             </span>
         </div>
     </div>
