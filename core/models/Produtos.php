@@ -55,7 +55,7 @@ class Produtos
             WHERE id_produto = :id_produto
             AND visivel = 1
             AND stock > 0 
-        ");
+        ", $parametros);
 
         return count($resultados) != 0 ? true : false;
     }

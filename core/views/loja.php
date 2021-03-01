@@ -37,7 +37,7 @@
                         <div>
 
                             <?php if ($produto->stock > 0) : ?>
-                                <button class="btn btn-info btn-sm " onclick="adicionar_carrinho(<?= $produto->id_produto ?>)"><em class="fas fa-shopping-cart me-2"> Adicionar ao carrinho</em></button>
+                                <button class="btn btn-info btn-sm " onclick="adicionar_carrinho(<?= $produto->id_produto ?>)"><em class="fas fa-shopping-cart me-2">Adicionar ao carrinho</em></button>
                             <?php else : ?>
                                 <button class="btn btn-danger btn-sm "><em class="fas fa-shopping-cart me-2"> Produto indisponível</em></button>
                             <?php endif; ?>
