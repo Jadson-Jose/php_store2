@@ -59,4 +59,15 @@ class Produtos
 
         return count($resultados) != 0 ? true : false;
     }
+
+    // ================================================================
+    public function buscar_produtos_por_ids($ids)
+    {
+
+        $bd = new Database();
+        return $bd->select("
+            SELECT * FROM produtos
+            WHERE id_produto IN ($ids) 
+        ");
+    }
 }
