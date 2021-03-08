@@ -1,15 +1,94 @@
-<h3>Carrinho!</h3>
-<a href="?a=limpar_carrinho" class="btn btn-sm btn-primary">Limpar carrinho</a>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3 class="my-4">Seu Carrinho</h3>
+            <hr>
+        </div>
+    </div>
+</div>
 
-<div class="contaiber">
+
+<div class="container">
     <div class="row">
         <div class="col">
 
             <?php if ($carrinho == null) : ?>
-                <p>Carrinho vazio</p>
-                <p><a href="?a=loja" class="btn btn-primary">Loja</a></p>
+                <p class="text-center">Não exitem produtos no seu carrinho.</p>
+                <div class="mt-4 text-center">
+                    <a href="?a=loja" class="btn btn-primary">Ir para a loja</a>
+                </div>
+
             <?php else : ?>
-                <p>Carrinho....</p>
+
+                <div style="margin-bottom: 80px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Produto</th>
+                                <th class="text-center">Quantidade</th>
+                                <th class="text-end">Valor total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php
+                            $index = 0;
+                            $total_rows = count($carrinho);
+                            ?>
+
+                            <?php foreach ($carrinho as $produto) : ?>
+                                <?php if ($index < $total_rows - 1) : ?>
+
+                                    <!-- lista dos produtos -->
+                                    <tr>
+                                        <td><img src="assets/images/produtos/<?= $produto['imagem']; ?>" class="img-fluid" width="50px"></td>
+                                        <td class="align-middle"><?= $produto['titulo'] ?></td>
+                                        <td class="align-middle text-center"><?= $produto['quantidade'] ?></td>
+                                        <td class="text-end align-middle"><?= 'R$' . str_replace('.', ',', $produto['preco']) ?></td>
+
+                                        <td class="text-center align-middle">
+
+                                            <a href="?a=remover_produto_carrinho&id_produto=<?= $produto['id_produto']?>" class="btn btn-danger btn-sm"><em class="fas fa-times"></em></a>
+
+                                        </td>
+                                    </tr>
+                                <?php else : ?>
+
+                                    <!-- total -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-end">
+                                            <h5>Total:</h5>
+                                        </td>
+                                        <td class="text-end">
+                                            <h5><?= 'R$' . str_replace('.', ',', $produto) ?></h5>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php $index++; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+
+                        <div class="col">
+                            <a href="?a=limpar_carrinho" class="btn btn-sm btn-primary">Limpar carrinho</a>
+                        </div>
+
+                        <div class="col text-end">
+                            <a href="?a=loja" class="btn btn-sm btn-primary">Continuar Compra</a>
+                            <a href="#" class="btn btn-sm btn-primary">Finalizar Compra</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
             <?php endif; ?>
 
         </div>
