@@ -246,7 +246,16 @@ class Main
             $_SESSION['nome_completo'] = $resultado->nome_completo;
 
             // redirecioanr para o inicio da nossa loja
-            Store::redirect();
+            if (isset($_SESSION['temp_carrinho'])) {
+
+                // remove a variável temporária da sessão
+                unset($_SESSION['temp_carrinho']);
+
+                // redireciona para o carrinho
+                Store::redirect('carrinho');
+            } else {
+                Store::redirect();
+            }
         }
     }
 

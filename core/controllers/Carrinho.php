@@ -166,4 +166,19 @@ class Carrinho
             'layouts/html_footer',
         ], $dados);
     }
+
+    // ==============================================================
+    public function finalizar_encomenda()
+    {
+
+        // Verifica se existe cliente logado
+        if (!isset($_SESSION['cliente'])) {
+
+            // coloca na sessão um referrer temporário
+            $_SESSION['temp_carrinho'] = true;
+
+            // Redirecionar para o página de login
+            Store::redirect('login');
+        }
+    }
 }
