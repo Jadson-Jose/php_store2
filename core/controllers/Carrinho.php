@@ -179,6 +179,84 @@ class Carrinho
 
             // Redirecionar para o página de login
             Store::redirect('login');
+        } else {
+
+            Store::redirect('finalizar_encomenda_resumo');
         }
+    }
+
+    // ==============================================================
+    public function finalizar_encomenda_resumo()
+    {
+
+        // verifica se existe cliente logado
+        if (!isset($_SESSION['cliente'])) {
+            Store::redirect('inicio');
+        }
+
+
+        // informações do carrinho
+        $ids = [];
+        foreach ($_SESSION['carrinho'] as $id_produto => $quantidade) {
+            array_push($ids, $id_produto);
+        }
+
+        $ids = implode(",", $ids);
+        $produtos = new Produtos();
+        $resultados = $produtos->buscar_produtos_por_ids($ids);
+
+
+        $dados_temp = [];
+        foreach ($_SESSION['carrinho'] as $id_produto => $quantidade_carrinho) {
+
+            // imagem do produto
+            foreach ($resultados as $produto) {
+                if ($produto->id_produto == $id_produto) {
+                    $id_produto = $produto->id_produto;
+                    $imagem = $produto->imagem;
+                    $titulo = $produto->nome_produto;
+                    $quantidade = $quantidade_carrinho;
+                    $preco = $produto->preco * $quantidade;
+
+                    // colocar o produto na coleção
+                    array_push($dados_temp, [
+                        'id_produto' => $id_produto,
+                        'imagem' => $imagem,
+                        'titulo' => $titulo,
+                        'quantidade' => $quantidade,
+                        'preco' => $preco
+                    ]);
+
+                    break;
+                }
+            }
+        }
+
+        // calcular o total
+        $total_da_encomenda = 0;
+        foreach ($dados_temp as $item) {
+            $total_da_encomenda += $item['preco'];
+        }
+
+        array_push($dados_temp, $total_da_encomenda);
+
+        // preparar os dados da view
+        $dados = [];
+        $dados['carrinho'] = $dados_temp;
+
+        // busca as informações do cliente
+        $cliente = new Clientes();
+        $dados_cliente = $cliente->buscar_dados_cliente($_SESSION['cliente']);
+        $dados['cliente'] = $dados_cliente;
+
+
+        // apresenta a página do carrinho
+        Store::Layout([
+            'layouts/html_header',
+            'layouts/header',
+            'encomenda_resumo',
+            'layouts/footer',
+            'layouts/html_footer',
+        ], $dados);
     }
 }
