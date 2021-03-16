@@ -259,4 +259,36 @@ class Carrinho
             'layouts/html_footer',
         ], $dados);
     }
+
+    // ==============================================================
+    public function endereco_alternativo()
+    {
+
+        // receber os dados via AJAX(axios)
+        $post = json_decode(file_get_contents('php://input'), true);
+
+        $_SESSION['dados_alternativos'] = [
+            'endereco' => $post['text_endereco_alternativo'],
+            'cidade' => $post['text_cidade_alternativo'],
+            'email' => $post['text_email_alternativo'],
+            'telefone' => $post['text_telefone_alternativo'],
+        ];
+    }
+
+    // ==============================================================
+    public function escolher_metodo_pagamento()
+    {
+
+        echo 'Escolher pagamento';
+
+        // $_SESSION['dados_alternativos'] = [
+        //     'endereco'
+        //     'cidade'
+        //     'email'
+        //     'telefone'
+        // ];
+
+
+        Store::printData($_SESSION);
+    }
 }
