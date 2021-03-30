@@ -152,6 +152,9 @@ class Carrinho
 
             array_push($dados_temp, $total_da_encomenda);
 
+            // colocar o preço total na sessão
+            $_SESSION['total_encomenda'] = $total_da_encomenda;
+
             $dados = [
                 'carrinho' => $dados_temp
             ];
@@ -249,6 +252,11 @@ class Carrinho
         $dados_cliente = $cliente->buscar_dados_cliente($_SESSION['cliente']);
         $dados['cliente'] = $dados_cliente;
 
+        // gerar código da encomenda
+        if (!isset($_SESSION['codigo_encomenda'])) {
+            $codigo_encomenda = Store::gerarCodigoEncomenda();
+            $_SESSION['codigo_encomenda'] = $codigo_encomenda;
+        }
 
         // apresenta a página do carrinho
         Store::Layout([
@@ -277,7 +285,7 @@ class Carrinho
     }
 
     // ==============================================================
-    public function escolher_metodo_pagamento()
+    public function confirmar_encomenda()
     {
 
         echo 'Escolher pagamento';
@@ -290,6 +298,21 @@ class Carrinho
         // ];
 
 
-        Store::printData($_SESSION);
+        
+        $codigo_encomenda = $_SESSION['codigo_encomenda'];
+        $total_da_encomenda = $_SESSION['total_encomenda'];
+
+        // apresenta a página de agradecimento da encomenda
+        $dados = [
+            'codigo_encomenda' => $codigo_encomenda,
+            'total_encomenda' => $total_da_encomenda
+        ];
+        Store::Layout([
+            'layouts/html_header',
+            'layouts/header',
+            'encomenda_confirmada',
+            'layouts/footer',
+            'layouts/html_footer',
+        ], $dados);
     }
 }

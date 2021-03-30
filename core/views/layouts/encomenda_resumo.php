@@ -77,7 +77,20 @@
                     </div>
                 </div>
 
-                <div>
+                <!-- DADOS DE PAGAMENTO -->
+                <h5 class="bg-dark text-while p-2">Dados do pagamento</h5>
+                <div class="row">
+                    <div class="col">
+                        <p>Conta bancária: 1234567890</p>
+                        <p>Código de encomenda: <strong><?= $_SESSION['codigo_encomenda'] ?></strong></p>
+                        <p>total: <strong><?= 'R$' . number_format($produto['preco'], 2, ',', '.') ?></strong></p>
+                    </div>
+                </div>
+
+
+                <!-- endereco alternativo -->
+                <h5 class="bg-dark text-white p-2">Endereço alternativo de entrega</h5>
+                <div class="form-check">
                     <input type="checkbox" name="check_endereco_alternativo" id="check_endereco_alternativo" onchange="usar_endereco_alternativo()" class="form-check-input">
                     <label class="form-check-label" for="check_endereco_alternativo">Defina um endereço alternativo</label>
                 </div>
@@ -118,7 +131,7 @@
                     </div>
 
                     <div class="col text-end">
-                        <a href="?a=escolher_metodo_pagamento" onclick="endereco_alternativo()" class="btn btn-primary">Escolher metodo de pagamento</a>
+                        <a href="?a=confirmar_encomenda" onclick="endereco_alternativo()" class="btn btn-primary">Confirmar encomenda</a>
                     </div>
 
                 </div>

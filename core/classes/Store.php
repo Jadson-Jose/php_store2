@@ -65,4 +65,15 @@ class Store
 
         // die("<br>TERMINADO!");
     }
+
+    // ==============================================================
+    public static function gerarCodigoEncomenda()
+    {
+        // gera um código de encomenda
+        $codigo = "";
+        $chars = "ABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZ";
+        $codigo .= substr(str_shuffle($chars), 0, 2);
+        $codigo .= rand(100000, 999999);
+        return $codigo;
+    }
 }
