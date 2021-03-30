@@ -146,7 +146,14 @@ class Clientes
         ];
 
         $bd = new Database();
-        $resultados = $bd->select("SELECT * FROM clientes WHERE id_cliente = :id_cliente", $parametros);
+        $resultados = $bd->select("
+        SELECT 
+            email, 
+            nome_completo, 
+            endereco, 
+            cidade, 
+            telefone 
+        FROM clientes WHERE id_cliente = :id_cliente", $parametros);
         return $resultados[0];
     }
 }

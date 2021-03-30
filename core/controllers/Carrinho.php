@@ -267,11 +267,12 @@ class Carrinho
         // receber os dados via AJAX(axios)
         $post = json_decode(file_get_contents('php://input'), true);
 
+        // adiciona ou altera na sessão a variável (coleção / array) dados_alternativos
         $_SESSION['dados_alternativos'] = [
-            'endereco' => $post['text_endereco_alternativo'],
-            'cidade' => $post['text_cidade_alternativo'],
-            'email' => $post['text_email_alternativo'],
-            'telefone' => $post['text_telefone_alternativo'],
+            'endereco' => $post['text_endereco'],
+            'cidade' => $post['text_cidade'],
+            'email' => $post['text_email'],
+            'telefone' => $post['text_telefone'],
         ];
     }
 
