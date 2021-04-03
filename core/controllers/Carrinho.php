@@ -290,6 +290,56 @@ class Carrinho
 
         echo 'Escolher pagamento';
 
+
+        // enviar email para o cliente com os dados da encomenda e pagamento
+        $dados_encomenda = [];
+
+        // busca os dados dos produtos
+        $ids = [];
+        foreach ($_SESSION['carrinho'] as $id_produto => $quantidade) {
+            array_push($ids, $id_produto);
+        }
+        $ids = implode(",", $ids);
+        $produtos = new Produtos();
+        $resultados = $produtos->buscar_produtos_por_ids($ids);
+
+
+        // estrutura dos dados dos produtos
+
+        foreach ($resultados as $resultado) {
+            $string_produtos = '';
+
+            // quantidade
+            $quantidade  = $_SESSION['carrinho'][$resultado->id_produto];
+            $string_produtos[] = "$quantidade x $resultado->nome_produto - " . number_format($resultado->preco, 2, ',', '.') . '$ /uni.';
+        }
+
+        // lista de produtos para o email
+        $dados_encomenda['lista_produtos'] = $string_produtos;
+
+        // preco total de encomenda para o email
+        $dados_encomenda['total'] = number_format('R$' . $_SESSION['total_encomenda'], 2, ',', '.');
+
+        // dados de pagamento
+        $dados_encomenda['dados_pagamento'] = [
+            'numero_da_conta' => '1234567890',
+            'codigo_encomenda' => $_SESSION['codigo_encomenda'],
+            'total' => number_format('R$' . $_SESSION['total_encomenda'], 2, ',', '.')
+        ];
+        
+        // Store::printData($dados_encomenda);
+
+        // enviar o email para o cliente com os dados da encomenda
+        $email = new EnviarEmail();
+        $resultado = $email->enviar_email_confirmação_encomenda($_SESSION['usuario'], $dados_encomenda);
+        
+        
+        
+        
+        
+        
+        
+
         // $_SESSION['dados_alternativos'] = [
         //     'endereco'
         //     'cidade'
@@ -298,7 +348,7 @@ class Carrinho
         // ];
 
 
-        
+
         $codigo_encomenda = $_SESSION['codigo_encomenda'];
         $total_da_encomenda = $_SESSION['total_encomenda'];
 
