@@ -6,6 +6,7 @@ use core\classes\Database;
 use core\classes\EnviarEmail;
 use core\classes\Store;
 use core\models\Clientes;
+use core\models\Encomendas;
 use core\models\Produtos;
 
 
@@ -326,19 +327,19 @@ class Carrinho
             'codigo_encomenda' => $_SESSION['codigo_encomenda'],
             'total' => number_format('R$' . $_SESSION['total_encomenda'], 2, ',', '.')
         ];
-        
+
         // Store::printData($dados_encomenda);
 
         // enviar o email para o cliente com os dados da encomenda
         $email = new EnviarEmail();
         $resultado = $email->enviar_email_confirmação_encomenda($_SESSION['usuario'], $dados_encomenda);
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
 
         // $_SESSION['dados_alternativos'] = [
         //     'endereco'
@@ -346,6 +347,60 @@ class Carrinho
         //     'email'
         //     'telefone'
         // ];
+
+
+
+
+
+
+
+
+        // guardar na base de dados a encomenda
+
+        $dados_encomenda = [];
+        $dados_encomenda['id_cliente'] = $_SESSION['cliente'];
+
+        // endereco
+        if (isset($_SESSION['dados_alternativos']['endereco']) && !empty($_SESSION['dados_alternativos']['endereco'])) {
+            // considerar o endereço alternativo
+            $dados_encomenda['endereco'] = $_SESSION['dados_alternativos']['endereco'];
+            $dados_encomenda['cidade'] = $_SESSION['dados_alternativos']['cidade'];
+            $dados_encomenda['email'] = $_SESSION['dados_alternativos']['email'];
+            $dados_encomenda['telefone'] = $_SESSION['dados_alternativos']['telefone'];
+        } else {
+            // considerar o endereço da base de dados
+            $CLIENTE = new Clientes();
+            $dados_cliente = $CLIENTE->buscar_dados_cliente($_SESSION['cliente']);
+
+            $dados_encomenda['endereco'] = $dados_cliente->endereco;
+            $dados_encomenda['cidade'] = $dados_cliente->cidade;
+            $dados_encomenda['email'] = $dados_cliente->email;
+            $dados_encomenda['telefone'] = $dados_cliente->telefone;
+        }
+
+        // codigo encomenda
+        $dados_encomenda['codigo_encomenda'] = $_SESSION['codigo_encomenda'];
+
+
+
+
+
+
+
+
+
+
+        $encomenda  = new Encomendas;
+        $encomenda->guardar_encomenda($dados_encomenda, $produtos);
+
+
+
+
+
+
+
+
+
 
 
 
