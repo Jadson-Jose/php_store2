@@ -381,6 +381,10 @@ class Carrinho
         // codigo encomenda
         $dados_encomenda['codigo_encomenda'] = $_SESSION['codigo_encomenda'];
 
+        // status
+        $dados_encomenda['status'] = 'PENDENTE';
+        $dados_encomenda['mensagem'] = '';
+
 
 
 
